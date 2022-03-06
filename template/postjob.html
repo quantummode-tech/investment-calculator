@@ -1,0 +1,75 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST A JOB</title>
+    <link rel="stylesheet" href="{%static 'css/postjob.css'%}">
+
+</head>
+<body>
+    <form action="">
+
+    <center>
+
+    <div class="postjobstatus">
+         <section  class="goback">
+             <p> < back</back> </p>
+         </section>
+
+        <section class="jobinfor">
+            <textarea name="jobofferinfor" id="jobofferinfor" cols="50" rows="10" placeholder="Say somthing about the job that you want to offer"></textarea>
+        </section>
+
+      <section class="uploadpic">
+        <input type="file" name="image" id="image" placeholder="upload an image">
+      </section>
+
+
+
+      <div id="salaryquestion">
+           <label for=""> Does the salary changes?
+               <input type="radio" name="salarychange" id="yes" value="YES"> YES
+               <input type="radio" name="salarychange" id="no" value="NO">NO
+           </label>
+      </div>
+      
+
+      <section id="dynamicsalary">
+       <input type="number" name="salarymin"  id="salaryminimum" placeholder="minimum salary (ignore sign)">
+       <input type="number" name="salarymax"  id="salarymaximum" placeholder="maximum salary (ignore sign)">
+      </section>
+
+      <section id="fixedsalary">
+          <input type="number" name="fix" id="fix" placeholder="Fixed salary... (ignore the sign)">
+      </section> 
+
+      <button type="submit">POST</button>
+    </div>
+    
+</center>
+</form>
+
+</body>
+<script>
+var answeryes = document.getElementById("yes");
+var answerno = document.getElementById("no");
+
+
+
+answeryes.addEventListener('click', function check(){
+  
+       document.getElementById('dynamicsalary').style.display='block';
+       document.getElementById('fixedsalary').style.display='none';
+
+})
+
+answerno.addEventListener('click', function(){
+    document.getElementById('fixedsalary').style.display='block';
+    document.getElementById('dynamicsalary').style.display='none';
+})
+</script>
+</html>
