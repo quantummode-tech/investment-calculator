@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      #show{
+          display:none;
+          height:30vh;
+          width: 70%;
+          margin: 3em auto;
+          background:pink;
+          border-radius: 30px;
+          box-shadow: 0px 20px 7px rgba(0,0,0,.5), 0 15px 11px rgba(0,0,0,.3);;
+      }
+      #interestfield{
+          padding-top: 3em;
+      }
+    #totalfield{
+          margin-top: 3em;
+          
+      }
+      main,h5{
+          text-align: center;
+      }
+      h1{
+          text-align: center;
+          text-transform: capitalize;
+      }
+      .adela{
+          color:rgb(211, 137, 0);
+          font-size: large;
+      }
+      body{
+          background:linear-gradient(35deg,#CCFFFF, #FFCCCC);
+      }
+      input[type='number']{
+          margin-top: 2rem;
+          height:5vmin;
+          width: 50%;
+          border-radius: 20px;
+      }
+      input[type='reset']{
+           background-color:rgb(111, 111, 207) ;
+           border-radius:20px ;
+           color: white;
+      }
+      button{
+          margin-top: 2em;
+          background-color: rgb(111, 111, 207);
+          color: white;
+          border-radius: 20px;
+      }
+      .foot{
+          display: absolute;
+          bottom:0;
+          left: 0;
+          margin:25vh 0 0 0;
+      }
+    </style>
+</head>
+<body>
+    <form onsubmit="return false">
+    <div>
+        <h1>Welcome to investment calculator!</h1>
+         <i><h5>SPECIALLY MADE FOR <span class="adela">SURGEBUY INVESTMENT</span></h5></i>
+
+    </div>
+     <main> 
+        <div>
+            <input type="number" required step="any" min="0" name="rate" id="rate" placeholder="Rate in decimals">
+         </div>
+         <div>
+             <input type="number" min='0' required name="principal" id="principal" placeholder="Principal or Initail amount">
+          </div>
+          <div>
+             <input type="number" name="days" required min='0' id="days" placeholder="Number of days of investment ">
+          </div>
+          <button onclick="myclick()"> SHOW </button>
+          <input type="reset" value="CLEAR">
+          <section >
+              <div id="show" >
+                  <p id="interestfield"> INTEREST in <span id="intdays"></span> days: <span id="interest"></span></p>
+                  <p id="totalfield"> TOTAL amount: <span id="total"></span> </p>
+              </div>
+          </section>
+     </main><br>
+    </form>
+    <script>
+         
+         function myclick(){
+        var rate, days, principal, total, interest;
+        
+        rate = parseFloat( document.getElementById('rate').value);
+
+        principal = document.getElementById('principal').value;
+        days = document.getElementById('days').value;
+        
+        total = (principal*(1 + rate)**days).toFixed(2);
+      
+        interest= (total-principal).toFixed(2);
+
+        document.getElementById('total').innerHTML = Number(total).toLocaleString('en') + ' ' + 'cedis';
+        document.getElementById('intdays').innerHTML= days;
+        document.getElementById('interest').innerHTML= Number(interest).toLocaleString('en') + ' ' + 'cedis';
+        document.getElementById("show").style.display ='block';
+        
+       }
+    </script>
+</body>
+</html>

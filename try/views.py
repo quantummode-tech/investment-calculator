@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
 def POSTJOB(request):
-    return render(request, 'postjob.html')
+    return render(request, 'investment.html')
