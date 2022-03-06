@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Investment Calculator </title>
     <style>
       #show{
+        overflow: auto;
           display:none;
-          height:30vh;
-          width: 70%;
+          font-family:Monospace;
+          height:auto;
+          font-weight: bolder;
+          font-style: italic;
+          width: 90%;
           margin: 3em auto;
           background:pink;
           border-radius: 30px;
-          box-shadow: 0px 20px 7px rgba(0,0,0,.5), 0 15px 11px rgba(0,0,0,.3);;
+          box-shadow: 0px 20px 7px rgba(0,0,0,.5), 0 15px 11px rgba(0,0,0,.3);
+          padding: 0 0 2em 0;
       }
       #interestfield{
           padding-top: 3em;
@@ -27,6 +32,7 @@
       }
       h1{
           text-align: center;
+          font-size: 1.5em;
           text-transform: capitalize;
       }
       .adela{
@@ -35,22 +41,29 @@
       }
       body{
           background:linear-gradient(35deg,#CCFFFF, #FFCCCC);
+          font-family: Monospace;
+          font-size:1em;
       }
       input[type='number']{
           margin-top: 2rem;
-          height:5vmin;
-          width: 50%;
+          height:3.56vmax;
+          width: 70%;
+          font-size: 80%;
           border-radius: 20px;
+          border: solid silver 2px;
       }
-      input[type='reset']{
+      button.reset{
            background-color:rgb(111, 111, 207) ;
            border-radius:20px ;
            color: white;
+           width:30%;
       }
-      button{
+      
+      button.show{
           margin-top: 2em;
           background-color: rgb(111, 111, 207);
           color: white;
+          width:30%;
           border-radius: 20px;
       }
       .foot{
@@ -59,18 +72,35 @@
           left: 0;
           margin:25vh 0 0 0;
       }
+      table, th, td{
+          border:solid black 2px;
+      }
+      table{
+          border-collapse: collapse;
+          margin:0 auto;
+          justify-content: center;
+      }
+      .introsurge{
+          text-align: center;
+      }
+
+      .trademark{
+          opacity: 0.6;
+          color:blue;
+          text-align:center;
+      }
     </style>
 </head>
 <body>
-    <form onsubmit="return false">
+    
     <div>
         <h1>Welcome to investment calculator!</h1>
-         <i><h5>SPECIALLY MADE FOR <span class="adela">SURGEBUY INVESTMENT</span></h5></i>
+   
 
     </div>
      <main> 
         <div>
-            <input type="number" required step="any" min="0" name="rate" id="rate" placeholder="Rate in decimals">
+            <input type="number" required step="any" min="0" name="rate" id="rate" placeholder="Investment Rate in decimals. eg 0.03 of amount">
          </div>
          <div>
              <input type="number" min='0' required name="principal" id="principal" placeholder="Principal or Initail amount">
@@ -78,36 +108,106 @@
           <div>
              <input type="number" name="days" required min='0' id="days" placeholder="Number of days of investment ">
           </div>
-          <button onclick="myclick()"> SHOW </button>
-          <input type="reset" value="CLEAR">
+          <div>
+            <input type="number" step="0.01" required min="0" name="drawal" id="drawal" placeholder="Withdraw fee in decimal. eg 15% = 0.15 in decimal "/>
+          </div>
+          <button class="show" onclick="myclick()"> SHOW </button>
+          <button onclick="resetfunc()" class="reset" >CLEAR</button>
           <section >
               <div id="show" >
-                  <p id="interestfield"> INTEREST in <span id="intdays"></span> days: <span id="interest"></span></p>
-                  <p id="totalfield"> TOTAL amount: <span id="total"></span> </p>
+                  <p id="interestfield"> INTEREST IN <span id="intdays"></span> DAYS: <span id="interest"></span></p>
+                  <p id="totalfield"> TOTAL AMOUNT: <span id="total"></span> </p><br>
+                  <p class="withdraw"> AMOUNT WITHDRAWABLE: <span id="withdrawable"></span></p>
               </div>
-          </section>
+          </section><br>
+
+          <section>
+            <div>
+               <h4>INSTRUCTIONS FOR SURGEBUY USERS:</h4>
+            </div>
+            <table>
+                <thead>
+                  <tr>
+                      <th>LEVELS</th>
+                      <th>INVESTMENT RATE</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>level 1</td>
+                        <td>0.025</td>
+                    </tr>
+                    <tr>
+                        <td>level 2</td>
+                        <td>0.03</td>
+                    </tr>
+                    <tr>
+                        <td>level 3</td>
+                        <td>0.035</td>
+                    </tr>
+                    <tr>
+                        <td>level 4</td>
+                        <td>0.045</td>
+                    </tr>
+                    <tr>
+                        <td>level 5</td>
+                        <td>0.055</td>
+                    </tr>
+
+                    <tr>
+                        <td>level 6 or Acency hall</td>
+                        <td>0.03</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="introsurge">
+                <p>
+                    <span style="color: rgb(35, 122, 89);">withdrawable fee for SURGEBUY users:</span> 0.15
+                </p>
+            </div>
+            <div>
+                <span  style="color: rgb(231, 33, 19);">NB:</span> The interest and the total amount here is a therotical extimation of what you will actually get.The probability that you will get
+                higher amount than what is here is very high.
+                
+            </div>
+        </section>
      </main><br>
-    </form>
+   
     <script>
          
          function myclick(){
-        var rate, days, principal, total, interest;
+        var rate, days, principal, total, interest, withdraw, withdrawal;
         
         rate = parseFloat( document.getElementById('rate').value);
 
         principal = document.getElementById('principal').value;
         days = document.getElementById('days').value;
+        withdraw = parseFloat(document.getElementById("drawal").value);
         
         total = (principal*(1 + rate)**days).toFixed(2);
       
         interest= (total-principal).toFixed(2);
-
+        withdrawal = ((1-withdraw)*total).toFixed(2);
         document.getElementById('total').innerHTML = Number(total).toLocaleString('en') + ' ' + 'cedis';
         document.getElementById('intdays').innerHTML= days;
         document.getElementById('interest').innerHTML= Number(interest).toLocaleString('en') + ' ' + 'cedis';
+        document.getElementById("withdrawable").innerHTML= Number(withdrawal).toLocaleString("en");
         document.getElementById("show").style.display ='block';
         
        }
+       
+       function resetfunc(){
+        document.getElementById("show").style.display="none" ;
+       var inputarr =document.querySelectorAll("input");
+       inputarr.forEach(function(input){
+        input.value="" ;
+       })
+       }
     </script>
+    <footer>
+        <div class="trademark">&copy;2022.Product of Quantummodetech.All Rights Reserved</div>
+    </footer>
 </body>
 </html>
